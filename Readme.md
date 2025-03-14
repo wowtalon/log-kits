@@ -41,17 +41,41 @@ The `config.yaml` file allows you to specify the input and output settings. Here
 ```yaml
 workflows:
   - name: "workflow2"
+    enabled: false
+    steps:
+      - name: "step3"
+        worker: "syslog"
+        command: "echo 'Goodbye, world!'"
+        target: "localhost:5514"
+      - name: "step3"
+        worker: "base64"
+        command: "encode"
+        target: "localhost:5514"
+      - name: "step1"
+        worker: "webhook"
+        command: "echo 'Hello, world!'"
+        target:
+          url: "http://localhost:8080"
+          key: "ENV_VAR"
+  - name: "workflow2"
+    enabled: true
     steps:
       - name: "step1"
-        type: "webhook"
+        worker: "webhook"
         command: "echo 'Hello, world!'"
-        target: "http://localhost:8080"
+        target:
+          url: "http://localhost:8080"
+          key: "ENV_VAR"
       - name: "step2"
-        type: "json"
+        worker: "json"
         command: "data.msg"
         target: "localhost:5514"
       - name: "step3"
-        type: "syslog"
+        worker: "base64"
+        command: "encode"
+        target: "localhost:5514"
+      - name: "step3"
+        worker: "syslog"
         command: "echo 'Goodbye, world!'"
         target: "localhost:5514"
 ```
