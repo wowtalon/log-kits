@@ -7,7 +7,7 @@ def proc_msg(msg, type):
             for idx,step in enumerate(workflow['steps']):
                 if idx == 0:
                     continue
-                worker_name = str(step['worker']).capitalize() + 'Worker'
+                worker_name = ''.join([word.capitalize() for word in step['worker'].split('_')]) + 'Worker'
                 try:
                     module = importlib.import_module(f'worker.{step["worker"]}_worker')
                     worker = getattr(module, worker_name)(step)
