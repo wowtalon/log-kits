@@ -15,5 +15,5 @@ def read_config(file_path):
 
 
 if __name__ == "__main__":
-    print(read_config("./config.yaml"))
+    # print(read_config("./config.yaml"))
     send_syslog("This is a test message", 5514)
